@@ -1,7 +1,7 @@
 /* Ironbook service worker: app works offline; app files update in the background. */
-const CACHE = "ironbook-v1";
+const CACHE = "ironbook-v2";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
-const CDN = ["unpkg.com", "cdn.jsdelivr.net"];
+const CDN = ["unpkg.com", "cdn.jsdelivr.net", "fastly.jsdelivr.net"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)));
@@ -23,12 +23,12 @@ self.addEventListener("fetch", e => {
       return res;
     }).catch(() => caches.match(req).then(r => r || caches.match("./index.html"))));
   } else if (CDN.includes(url.hostname)) {
-    // Barcode and text-recognition libraries: cache after first use.
+    // Barcode decoder (incl. its WebAssembly file) and text-recognition libraries: cache after first use.
     e.respondWith(caches.match(req).then(r => r || fetch(req).then(res => {
       const copy = res.clone();
       caches.open(CACHE).then(c => c.put(req, copy));
       return res;
     })));
   }
-  // Everything else (GitHub, Open Food Facts, Anthropic) goes straight to the network.
+  // Everything else (GitHub, Open Food Facts, USDA, Anthropic) goes straight to the network.
 });

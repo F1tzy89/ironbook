@@ -58,7 +58,12 @@ Progress photos stay on the device where you took them; they aren't synced.
 
 - **Scan barcode** uses your camera live and looks the product up in **Open Food Facts**, a free database of over 3 million products. The first time, iPhone asks for camera permission.
 - **Not found?** Take a photo of the nutrition label. By default the text is read on your phone (free, no account). The first use downloads about 10 MB, and it can misread digits, so always check the numbers before saving. Once saved, scanning that barcode again logs it instantly.
-- **Search foods** searches Open Food Facts by name.
+- **Search foods** shows matching common foods as you type (about 140 built in, work offline), then tap **Search** to also look in Open Food Facts and USDA FoodData Central.
+- Barcodes are checked against **Open Food Facts** first (best for UK, Irish and European products), then **USDA FoodData Central** (US products).
+
+### Optional: free USDA key
+
+USDA's shared demo key allows only about 30 lookups an hour. For 1,000 an hour, get a free key at https://fdc.nal.usda.gov/api-key-signup (it arrives by email) and paste it into **Profile › Food databases**. It's stored only on that device; don't put it in the repository.
 
 ### Optional: Claude for label reading
 
